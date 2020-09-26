@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Grade Calculator',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Grade Calculator'),
     );
   }
 }
@@ -97,21 +97,88 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            Text('Enter Score:', style: TextStyle(fontSize: 20)),
+            Container(
+              margin: const EdgeInsets.all(20.0),
+              width: 350.0,
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  new Flexible(
+                    child: new TextField(
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Points Earned',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 20.0),
+                  Text('/', style: TextStyle(fontSize: 30)),
+                  const SizedBox(width: 20.0),
+                  new Flexible(
+                    child: new TextField(
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Total Points',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            const SizedBox(height: 30),
+            RaisedButton(
+              onPressed: _incrementCounter,
+              child: const Text('Submit', style: TextStyle(fontSize: 20)),
+            ),
+            const SizedBox(height: 50),
+            Text('Letter Grade:', style: TextStyle(fontSize: 30)),
+            Container(
+              margin: const EdgeInsets.all(20.0),
+              width: 75.0,
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  new Flexible(
+                    child: new TextField(
+                      readOnly: true,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Grade',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 30),
+            Text('Score:', style: TextStyle(fontSize: 30)),
+            Container(
+              margin: const EdgeInsets.all(20.0),
+              width: 100.0,
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  new Flexible(
+                    child: new TextField(
+                      readOnly: true,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Score (%)',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
