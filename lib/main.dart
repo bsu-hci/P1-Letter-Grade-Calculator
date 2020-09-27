@@ -27,15 +27,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController pointedEarnedTextField = new TextEditingController();
-  TextEditingController totalPointsTextField = new TextEditingController();
+  TextEditingController scoreTextField = new TextEditingController();
   TextEditingController letterGradeTextField = new TextEditingController();
 
   void _calcGrade() {
     setState(() {
-      double pointsEarned = double.parse(pointedEarnedTextField.text);
-      double totalPoints = double.parse(totalPointsTextField.text);
-      double score = (pointsEarned / totalPoints) * 100;
+      double score = double.parse(scoreTextField.text);
       String letterGrade = getLetterGrade(score);
       letterGradeTextField.text = letterGrade;
     });
@@ -68,28 +65,16 @@ class _MyHomePageState extends State<MyHomePage> {
             Text('Enter Score:', style: TextStyle(fontSize: 20)),
             Container(
               margin: const EdgeInsets.all(20.0),
-              width: 350.0,
+              width: 100.0,
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   new Flexible(
                     child: TextFormField(
-                      controller: pointedEarnedTextField,
+                      controller: scoreTextField,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Points Earned',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 20.0),
-                  Text('/', style: TextStyle(fontSize: 30)),
-                  const SizedBox(width: 20.0),
-                  new Flexible(
-                    child: TextFormField(
-                      controller: totalPointsTextField,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Total Points',
+                        labelText: 'Score',
                       ),
                     ),
                   ),
