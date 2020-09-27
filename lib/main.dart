@@ -30,7 +30,6 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController pointedEarnedTextField = new TextEditingController();
   TextEditingController totalPointsTextField = new TextEditingController();
   TextEditingController letterGradeTextField = new TextEditingController();
-  TextEditingController scoreTextField = new TextEditingController();
 
   void _calcGrade() {
     setState(() {
@@ -39,7 +38,6 @@ class _MyHomePageState extends State<MyHomePage> {
       double score = (pointsEarned / totalPoints) * 100;
       String letterGrade = getLetterGrade(score);
       letterGradeTextField.text = letterGrade;
-      scoreTextField.text = score.toStringAsFixed(1);
     });
   }
 
@@ -118,27 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Grade',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 30),
-            Text('Score:', style: TextStyle(fontSize: 30)),
-            Container(
-              margin: const EdgeInsets.all(20.0),
-              width: 100.0,
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  new Flexible(
-                    child: TextField(
-                      controller: scoreTextField,
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Score (%)',
                       ),
                     ),
                   ),
