@@ -1,5 +1,5 @@
-# project
-
+# Letter Grade Calculator
+ 
 A new Flutter project.
 
 ## Getting Started
