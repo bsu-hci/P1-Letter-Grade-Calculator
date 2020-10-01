@@ -28,27 +28,49 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController scoreTextField = new TextEditingController();
+  TextEditingController totalPointsTextField = new TextEditingController();
   TextEditingController letterGradeTextField = new TextEditingController();
+  bool _isTriage = false;
 
   void _calcGrade() {
+    double score = 0;
     setState(() {
-      double score = double.parse(scoreTextField.text);
+      if (!_isTriage) {
+        score = double.parse(scoreTextField.text);
+      } else {
+        score = double.parse(scoreTextField.text) / 100;
+      }
+
       String letterGrade = getLetterGrade(score);
       letterGradeTextField.text = letterGrade;
     });
   }
 
   String getLetterGrade(double score) {
-    if (score > 89.0) {
-      return "A";
-    } else if (score > 79.0) {
-      return "B";
-    } else if (score > 69.0) {
-      return "C";
-    } else if (score > 59.0) {
-      return "D";
+    if (!_isTriage) {
+      if (score > 89.0) {
+        return "A";
+      } else if (score > 79.0) {
+        return "B";
+      } else if (score > 69.0) {
+        return "C";
+      } else if (score > 59.0) {
+        return "D";
+      } else {
+        return "F";
+      }
     } else {
-      return "F";
+      if (score > (17 / 18)) {
+        return "A";
+      } else if (score > (5 / 6)) {
+        return "B";
+      } else if (score > (2 / 3)) {
+        return "C";
+      } else if (score > (7 / 15)) {
+        return "D";
+      } else {
+        return "F";
+      }
     }
   }
 
@@ -62,6 +84,19 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Container(
+                width: 200,
+                margin: const EdgeInsets.all(20.0),
+                child: CheckboxListTile(
+                  title: Text("Triage grading?"),
+                  value: _isTriage,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _isTriage = newValue;
+                    });
+                  },
+                  controlAffinity: ListTileControlAffinity.leading,
+                )),
             Text('Enter Score:', style: TextStyle(fontSize: 20)),
             Container(
               margin: const EdgeInsets.all(20.0),
