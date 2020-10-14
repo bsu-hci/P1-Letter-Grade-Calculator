@@ -2,6 +2,11 @@
  
 A new Flutter project.
 
+# Help/How To
+For standard grading, simply enter a score between 0 and 100, and it will tell you what letter grade you recieve.
+
+For triage grading, click the checkbox at the top labeled triage grading. Then you will enter a score between 0 and 1. You will see your final grade at the bottom of the screen.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

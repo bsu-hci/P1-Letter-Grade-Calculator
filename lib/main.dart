@@ -27,28 +27,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String errorMessage = "";
+  String grade = "";
   TextEditingController scoreTextField = new TextEditingController();
   TextEditingController totalPointsTextField = new TextEditingController();
-  TextEditingController letterGradeTextField = new TextEditingController();
   bool _isTriage = false;
 
   void _calcGrade() {
     double score = 0;
     setState(() {
-      if (!_isTriage) {
-        score = double.parse(scoreTextField.text);
-      } else {
-        score = double.parse(scoreTextField.text) / 100;
-      }
-
-      String letterGrade = getLetterGrade(score);
-      letterGradeTextField.text = letterGrade;
+      errorMessage = "";
+      score = double.parse(scoreTextField.text);
+      grade = getLetterGrade(score);
     });
   }
 
   String getLetterGrade(double score) {
     if (!_isTriage) {
-      if (score > 89.0) {
+      if (score > 100.0) {
+        errorMessage =
+            "Error: Score is too high, enter a value between 0 and 100.";
+      } else if (score > 89.0) {
         return "A";
       } else if (score > 79.0) {
         return "B";
@@ -56,11 +55,17 @@ class _MyHomePageState extends State<MyHomePage> {
         return "C";
       } else if (score > 59.0) {
         return "D";
-      } else {
+      } else if (score > 0.00) {
         return "F";
+      } else {
+        errorMessage =
+            "Error: Score is too low, enter a value between 0 and 100.";
       }
     } else {
-      if (score > (17 / 18)) {
+      if (score > 1) {
+        errorMessage =
+            "Error: Score is too high, enter a value between 0 and 1.";
+      } else if (score > (17 / 18)) {
         return "A";
       } else if (score > (5 / 6)) {
         return "B";
@@ -72,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
         return "F";
       }
     }
+    return "";
   }
 
   @override
@@ -121,27 +127,11 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: _calcGrade,
               child: const Text('Submit', style: TextStyle(fontSize: 20)),
             ),
+            Text(errorMessage, style: TextStyle(fontSize: 20)),
             const SizedBox(height: 50),
             Text('Letter Grade:', style: TextStyle(fontSize: 30)),
-            Container(
-              margin: const EdgeInsets.all(20.0),
-              width: 75.0,
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  new Flexible(
-                    child: TextField(
-                      controller: letterGradeTextField,
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Grade',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            Text(grade,
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))
           ],
         ),
       ),
